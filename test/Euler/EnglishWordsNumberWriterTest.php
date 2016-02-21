@@ -46,7 +46,7 @@ class EnglishWordsNumberWriterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('twenty-one', $this->writer->__invoke(21));
         $this->assertEquals('twenty-nine', $this->writer->__invoke(29));
         $this->assertEquals('thirty', $this->writer->__invoke(30));
-        $this->assertEquals('fourty', $this->writer->__invoke(40));
+        $this->assertEquals('forty', $this->writer->__invoke(40));
         $this->assertEquals('fifty', $this->writer->__invoke(50));
         $this->assertEquals('sixty', $this->writer->__invoke(60));
         $this->assertEquals('seventy', $this->writer->__invoke(70));
