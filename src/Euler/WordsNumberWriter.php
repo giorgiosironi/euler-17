@@ -3,8 +3,8 @@ namespace Euler;
 
 use InvalidArgumentException;
 
-// TODO: interface
-class WordsNumberWriter
+// TODO: rename to EnglishWordsNumberWriter
+class WordsNumberWriter implements NumberWriter
 {
     private $baseCases = [
         1 => 'one',
