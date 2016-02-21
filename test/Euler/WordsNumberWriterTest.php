@@ -57,4 +57,21 @@ class WordsNumberWriterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('one hundred and twenty-one', $this->writer->__invoke(121));
         $this->assertEquals('nine hundred and ninety-nine', $this->writer->__invoke(999));
     }
+
+    public static function invalidInputs() {
+        return [
+            [null],
+            [0],
+            [1001],
+        ];
+    }
+
+    /**
+     * @dataProvider invalidInputs
+     * @expectedException InvalidArgumentException
+     */
+    public function testInvalidInputsAreRejectedWithAnException($input)
+    {
+        $this->writer->__invoke($input);
+    }
 }

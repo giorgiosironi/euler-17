@@ -1,6 +1,9 @@
 <?php
 namespace Euler;
 
+use InvalidArgumentException;
+
+// TODO: interface
 class WordsNumberWriter
 {
     private $baseCases = [
@@ -39,6 +42,13 @@ class WordsNumberWriter
     // TODO: out of range numbers
     public function __invoke($number)
     {
+        if (!is_numeric($number)) {
+            throw new InvalidArgumentException("Input must be numeric, not " . var_export($number, true));
+        }
+        if ($number < 1 || $number > 1000) {
+            throw new InvalidArgumentException("Input must be in the range [1, 1000], but it's " . var_export($number, true));
+        }
+
         $result = '';
         if ($number >= 100) {
             $hundreds = $this->mostSignificantDigit($number);
