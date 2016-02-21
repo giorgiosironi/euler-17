@@ -41,6 +41,13 @@ class WordsNumberWriterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('twenty', $this->writer->__invoke(20));
         $this->assertEquals('twenty-one', $this->writer->__invoke(21));
         $this->assertEquals('twenty-nine', $this->writer->__invoke(29));
+        $this->assertEquals('thirty', $this->writer->__invoke(30));
+        $this->assertEquals('fourty', $this->writer->__invoke(40));
+        $this->assertEquals('fifty', $this->writer->__invoke(50));
+        $this->assertEquals('sixty', $this->writer->__invoke(60));
+        $this->assertEquals('seventy', $this->writer->__invoke(70));
+        $this->assertEquals('eighty', $this->writer->__invoke(80));
+        $this->assertEquals('ninety', $this->writer->__invoke(90));
     }
 
     public function testNumbersHigherThan100AreComposed()
