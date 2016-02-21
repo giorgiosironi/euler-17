@@ -6,11 +6,11 @@ namespace Euler;
  * at the first failure, since failures of "units" or "tens" will be correlated
  * with each other and there is no need to report 10 times the same failure.
  */
-class WordsNumberWriterTest extends \PHPUnit_Framework_TestCase
+class EnglishWordsNumberWriterTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        $this->writer = new WordsNumberWriter();
+        $this->writer = new EnglishWordsNumberWriter();
     }
     
     public function testSingleCipherNumbersAreTranslatedWithASingleWord()

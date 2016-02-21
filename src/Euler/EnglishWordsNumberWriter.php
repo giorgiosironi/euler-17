@@ -3,8 +3,7 @@ namespace Euler;
 
 use InvalidArgumentException;
 
-// TODO: rename to EnglishWordsNumberWriter
-class WordsNumberWriter implements NumberWriter
+class EnglishWordsNumberWriter implements NumberWriter
 {
     private $baseCases = [
         1 => 'one',
@@ -50,19 +49,19 @@ class WordsNumberWriter implements NumberWriter
 
         $result = '';
         if ($number >= 1000) {
-            $segment = new Segment(1000, $this->baseCases, ' thousand', ' and ');
+            $segment = new EnglishWordsSegment(1000, $this->baseCases, ' thousand', ' and ');
             $result .= $segment->buildFromNumber($number);
             $number = $segment->remainingNumber($number);
         }
 
         if ($number >= 100) {
-            $segment = new Segment(100, $this->baseCases, ' hundred', ' and ');
+            $segment = new EnglishWordsSegment(100, $this->baseCases, ' hundred', ' and ');
             $result .= $segment->buildFromNumber($number);
             $number = $segment->remainingNumber($number);
         }
 
         if ($number >= 20) {
-            $segment = new Segment(10, $this->tens, '', '-');
+            $segment = new EnglishWordsSegment(10, $this->tens, '', '-');
             $result .= $segment->buildFromNumber($number);
             $number = $segment->remainingNumber($number);
         }
@@ -71,42 +70,5 @@ class WordsNumberWriter implements NumberWriter
             $result .= $this->baseCases[$number];
         }
         return $result;
-    }
-}
-
-// TODO: move out
-class Segment
-{
-    private $powerOfTen;
-    private $lookup;
-    private $suffix;
-    private $separator;
-    
-    public function __construct($powerOfTen, array $lookup, $suffix = '', $separator = '')
-    {
-        $this->powerOfTen = $powerOfTen;
-        $this->lookup = $lookup;
-        $this->suffix = $suffix;
-        $this->separator = $separator;
-    }
-
-    public function buildFromNumber($number)
-    {
-        $hundreds = $this->mostSignificantDigit($number);
-        $hundredsPart = $this->lookup[$hundreds] . $this->suffix;
-        if ($number % $this->powerOfTen > 0) {
-            $hundredsPart .= $this->separator;
-        }
-        return $hundredsPart;
-    }
-
-    public function remainingNumber($number)
-    {
-        return $number % $this->powerOfTen;
-    }
-
-    private function mostSignificantDigit($number)
-    {
-        return substr((string) $number, 0, 1);
     }
 }
