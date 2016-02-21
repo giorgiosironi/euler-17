@@ -24,33 +24,22 @@ class WordsNumberWriter
         $result = '';
         if ($number >= 100) {
             $hundreds = $this->mostSignificantDigit($number);
-            list (, $tens, $units) = $this->explodeIntoPowersOfTen($number);
             $number -= 100 * $hundreds;
             $hundredsPart = $this->ciphers[$hundreds] . ' hundred';
             $separator = ' and ';
-            if ($units) {
-                $unitsPart = $this->ciphers[$units];
-            } else {
-                $unitsPart = null;
-            }
             $result .= $hundredsPart;
-            if ($unitsPart) {
+            if ($number > 0) {
                 $result .= $separator;
             }
         }
 
         if ($number >= 20) {
-            list (, $tens, $units) = $this->explodeIntoPowersOfTen($number);
+            list (, $tens, ) = $this->explodeIntoPowersOfTen($number);
             $tensPart = $this->tens[$tens];
             $number -= $tens;
             $separator = '-';
-            if ($units) {
-                $unitsPart = $this->ciphers[$units];
-            } else {
-                $unitsPart = null;
-            }
             $result .= $tensPart;
-            if ($unitsPart) {
+            if ($number > 0) {
                 $result .= $separator;
             }
         }
