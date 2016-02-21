@@ -50,12 +50,20 @@ class WordsNumberWriterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('ninety', $this->writer->__invoke(90));
     }
 
-    public function testNumbersHigherThan100AreComposed()
+    public function testNumbersHigherThan100AreComposedOfAtMostThreeSegments()
     {
         $this->assertEquals('one hundred', $this->writer->__invoke(100));
         $this->assertEquals('one hundred and one', $this->writer->__invoke(101));
         $this->assertEquals('one hundred and twenty-one', $this->writer->__invoke(121));
         $this->assertEquals('nine hundred and ninety-nine', $this->writer->__invoke(999));
+    }
+
+    /**
+     * Only 1000 is supported in this upper range.
+     */
+    public function testNumbersHigherThen1000AreComposedOfAtMostFourSegments()
+    {
+        $this->assertEquals('one thousand', $this->writer->__invoke(1000));
     }
 
     public static function invalidInputs() {

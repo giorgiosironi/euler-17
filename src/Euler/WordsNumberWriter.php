@@ -50,6 +50,17 @@ class WordsNumberWriter
         }
 
         $result = '';
+        if ($number >= 1000) {
+            $thousands = $this->mostSignificantDigit($number);
+            $number -= 1000 * $thousands;
+            $thousandsPart = $this->baseCases[$thousands] . ' thousand';
+            $separator = ' and ';
+            $result .= $thousandsPart;
+            if ($number > 0) {
+                $result .= $separator;
+            }
+        }
+
         if ($number >= 100) {
             $hundreds = $this->mostSignificantDigit($number);
             $number -= 100 * $hundreds;
