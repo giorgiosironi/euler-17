@@ -1,0 +1,17 @@
+{
+    "name": "giorgiosironi/euler-17",
+    "description": "A solution to https://projecteuler.net/problem=17",
+    "authors": [
+        {
+            "name": "Giorgio Sironi",
+            "email": "info@giorgiosironi.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^5.2"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-0": { "Euler": ["src/", "test/"] }
+    }
+}
