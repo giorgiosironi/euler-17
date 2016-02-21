@@ -23,7 +23,19 @@ class WordsNumberWriter
     {
         if ($number >= 100) {
             list ($hundreds, $tens, $units) = $this->explodeIntoPowersOfTen($number);
-            return 'one hundred';
+            $hundredsPart = 'one hundred';
+            $separator = ' and ';
+            if ($units) {
+                $unitsPart = $this->ciphers[$units];
+            } else {
+                $unitsPart = null;
+            }
+            $result = $hundredsPart;
+            if ($unitsPart) {
+                $result .= $separator;
+                $result .= $unitsPart;
+            }
+            return $result;
         }
 
         if ($number >= 20) {
