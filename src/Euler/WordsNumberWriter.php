@@ -21,21 +21,22 @@ class WordsNumberWriter
 
     public function __invoke($number)
     {
+        $result = '';
         if ($number >= 100) {
-            list ($hundreds, $tens, $units) = $this->explodeIntoPowersOfTen($number);
-            $hundredsPart = 'one hundred';
+            $hundreds = $this->mostSignificantDigit($number);
+            list (, $tens, $units) = $this->explodeIntoPowersOfTen($number);
+            $number -= 100 * $hundreds;
+            $hundredsPart = $this->ciphers[$hundreds] . ' hundred';
             $separator = ' and ';
             if ($units) {
                 $unitsPart = $this->ciphers[$units];
             } else {
                 $unitsPart = null;
             }
-            $result = $hundredsPart;
+            $result .= $hundredsPart;
             if ($unitsPart) {
                 $result .= $separator;
-                $result .= $unitsPart;
             }
-            return $result;
         }
 
         if ($number >= 20) {
@@ -47,7 +48,7 @@ class WordsNumberWriter
             } else {
                 $unitsPart = null;
             }
-            $result = $tensPart;
+            $result .= $tensPart;
             if ($unitsPart) {
                 $result .= $separator;
                 $result .= $unitsPart;
@@ -55,7 +56,10 @@ class WordsNumberWriter
             return $result;
         }
 
-        return $this->ciphers[$number];
+        if ($number >= 1) {
+            $result .= $this->ciphers[$number];
+        }
+        return $result;
     }
 
     // TODO: better domain-related name
@@ -65,5 +69,10 @@ class WordsNumberWriter
         $tens = ($number - $units) % 100;
         $hundreds = $number - $tens - $units;
         return [$hundreds, $tens, $units];
+    }
+
+    private function mostSignificantDigit($number)
+    {
+        return substr((string) $number, 0, 1);
     }
 }
