@@ -21,8 +21,13 @@ class WordsNumberWriter
 
     public function __invoke($number)
     {
+        if ($number >= 100) {
+            list ($hundreds, $tens, $units) = $this->explodeIntoPowersOfTen($number);
+            return 'one hundred';
+        }
+
         if ($number >= 20) {
-            list ($tens, $units) = $this->explodeIntoPowersOfTen($number);
+            list (, $tens, $units) = $this->explodeIntoPowersOfTen($number);
             $tensPart = $this->tens[$tens];
             $separator = '-';
             if ($units) {
@@ -37,6 +42,7 @@ class WordsNumberWriter
             }
             return $result;
         }
+
         return $this->ciphers[$number];
     }
 
@@ -44,6 +50,8 @@ class WordsNumberWriter
     private function explodeIntoPowersOfTen($number)
     {
         $units = $number % 10;
-        return [$number - $units, $units];
+        $tens = ($number - $units) % 100;
+        $hundreds = $number - $tens - $units;
+        return [$hundreds, $tens, $units];
     }
 }
