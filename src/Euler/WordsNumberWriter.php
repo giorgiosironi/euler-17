@@ -62,14 +62,9 @@ class WordsNumberWriter
         }
 
         if ($number >= 100) {
-            $hundreds = $this->mostSignificantDigit($number);
-            $number -= 100 * $hundreds;
-            $hundredsPart = $this->baseCases[$hundreds] . ' hundred';
-            $separator = ' and ';
-            $result .= $hundredsPart;
-            if ($number > 0) {
-                $result .= $separator;
-            }
+            $segment = new Segment(100, $this->baseCases, ' hundred', ' and ');
+            $result .= $segment->buildFromNumber($number);
+            $number = $segment->remainingNumber($number);
         }
 
         if ($number >= 20) {
@@ -87,6 +82,42 @@ class WordsNumberWriter
             $result .= $this->baseCases[$number];
         }
         return $result;
+    }
+
+    private function mostSignificantDigit($number)
+    {
+        return substr((string) $number, 0, 1);
+    }
+}
+
+class Segment
+{
+    private $powerOfTen;
+    private $lookup;
+    private $suffix;
+    private $separator;
+    
+    public function __construct($powerOfTen, array $lookup, $suffix = '', $separator = '')
+    {
+        $this->powerOfTen = $powerOfTen;
+        $this->lookup = $lookup;
+        $this->suffix = $suffix;
+        $this->separator = $separator;
+    }
+
+    public function buildFromNumber($number)
+    {
+        $hundreds = $this->mostSignificantDigit($number);
+        $hundredsPart = $this->lookup[$hundreds] . $this->suffix;
+        if ($number % $this->powerOfTen > 0) {
+            $hundredsPart .= $this->separator;
+        }
+        return $hundredsPart;
+    }
+
+    public function remainingNumber($number)
+    {
+        return $number % $this->powerOfTen;
     }
 
     private function mostSignificantDigit($number)
