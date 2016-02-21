@@ -1,6 +1,11 @@
 <?php
 namespace Euler;
 
+/**
+ * Most tests do not use data providers in order to stop the test method
+ * at the first failure, since failures of "units" or "tens" will be correlated
+ * with each other and there is no need to report 10 times the same failure.
+ */
 class WordsNumberWriterTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
@@ -35,7 +40,6 @@ class WordsNumberWriterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('nineteen', $this->writer->__invoke(19));
     }
 
-    // TODO: introduce data providers
     public function testNumbersHigherThan20AreComposed()
     {
         $this->assertEquals('twenty', $this->writer->__invoke(20));
