@@ -3,7 +3,7 @@ namespace Euler;
 
 class WordsNumberWriter
 {
-    private $ciphers = [
+    private $baseCases = [
         1 => 'one',
         2 => 'two',
         3 => 'three',
@@ -13,6 +13,16 @@ class WordsNumberWriter
         7 => 'seven',
         8 => 'eight',
         9 => 'nine',
+        10 => 'ten',
+        11 => 'eleven',
+        12 => 'twelve',
+        13 => 'thirteen',
+        14 => 'fourteen',
+        15 => 'fifteen',
+        16 => 'sixteen',
+        17 => 'seventeen',
+        18 => 'eighteen',
+        19 => 'nineteen',
     ];
 
     private $tens = [
@@ -20,13 +30,14 @@ class WordsNumberWriter
         9 => 'ninety',
     ];
 
+    // TODO: out of range numbers
     public function __invoke($number)
     {
         $result = '';
         if ($number >= 100) {
             $hundreds = $this->mostSignificantDigit($number);
             $number -= 100 * $hundreds;
-            $hundredsPart = $this->ciphers[$hundreds] . ' hundred';
+            $hundredsPart = $this->baseCases[$hundreds] . ' hundred';
             $separator = ' and ';
             $result .= $hundredsPart;
             if ($number > 0) {
@@ -46,7 +57,7 @@ class WordsNumberWriter
         }
 
         if ($number >= 1) {
-            $result .= $this->ciphers[$number];
+            $result .= $this->baseCases[$number];
         }
         return $result;
     }

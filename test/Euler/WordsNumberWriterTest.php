@@ -21,6 +21,20 @@ class WordsNumberWriterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('nine', $this->writer->__invoke(9));
     }
 
+    public function testTheTeenNumbersAreExceptions()
+    {
+        $this->assertEquals('ten', $this->writer->__invoke(10));
+        $this->assertEquals('eleven', $this->writer->__invoke(11));
+        $this->assertEquals('twelve', $this->writer->__invoke(12));
+        $this->assertEquals('thirteen', $this->writer->__invoke(13));
+        $this->assertEquals('fourteen', $this->writer->__invoke(14));
+        $this->assertEquals('fifteen', $this->writer->__invoke(15));
+        $this->assertEquals('sixteen', $this->writer->__invoke(16));
+        $this->assertEquals('seventeen', $this->writer->__invoke(17));
+        $this->assertEquals('eighteen', $this->writer->__invoke(18));
+        $this->assertEquals('nineteen', $this->writer->__invoke(19));
+    }
+
     // TODO: introduce data providers
     public function testNumbersHigherThan20AreComposed()
     {
