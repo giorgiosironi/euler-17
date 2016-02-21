@@ -42,6 +42,7 @@ class WordsNumberWriter
         if ($number >= 20) {
             list (, $tens, $units) = $this->explodeIntoPowersOfTen($number);
             $tensPart = $this->tens[$tens];
+            $number -= $tens;
             $separator = '-';
             if ($units) {
                 $unitsPart = $this->ciphers[$units];
@@ -51,9 +52,7 @@ class WordsNumberWriter
             $result .= $tensPart;
             if ($unitsPart) {
                 $result .= $separator;
-                $result .= $unitsPart;
             }
-            return $result;
         }
 
         if ($number >= 1) {
