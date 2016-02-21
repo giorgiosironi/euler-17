@@ -11,5 +11,6 @@ class WordsNumberWriterTest extends \PHPUnit_Framework_TestCase
     public function testSingleCipherNumbersAreTranslatedWithASingleWord()
     {
         $this->assertEquals('one', $this->writer->__invoke(1));
+        $this->assertEquals('two', $this->writer->__invoke(2));
     }
 }
