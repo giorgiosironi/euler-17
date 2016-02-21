@@ -15,8 +15,35 @@ class WordsNumberWriter
         9 => 'nine',
     ];
 
+    private $tens = [
+        20 => 'twenty',
+    ];
+
     public function __invoke($number)
     {
+        if ($number >= 20) {
+            list ($tens, $units) = $this->explodeIntoPowersOfTen($number);
+            $tensPart = $this->tens[$tens];
+            $separator = '-';
+            if ($units) {
+                $unitsPart = $this->ciphers[$units];
+            } else {
+                $unitsPart = null;
+            }
+            $result = $tensPart;
+            if ($unitsPart) {
+                $result .= $separator;
+                $result .= $unitsPart;
+            }
+            return $result;
+        }
         return $this->ciphers[$number];
+    }
+
+    // TODO: better domain-related name
+    private function explodeIntoPowersOfTen($number)
+    {
+        $units = $number % 10;
+        return [$number - $units, $units];
     }
 }
