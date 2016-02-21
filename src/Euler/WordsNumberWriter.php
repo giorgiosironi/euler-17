@@ -16,7 +16,7 @@ class WordsNumberWriter
     ];
 
     private $tens = [
-        20 => 'twenty',
+        2 => 'twenty',
     ];
 
     public function __invoke($number)
@@ -34,9 +34,9 @@ class WordsNumberWriter
         }
 
         if ($number >= 20) {
-            list (, $tens, ) = $this->explodeIntoPowersOfTen($number);
+            $tens = $this->mostSignificantDigit($number);
             $tensPart = $this->tens[$tens];
-            $number -= $tens;
+            $number -= $tens * 10;
             $separator = '-';
             $result .= $tensPart;
             if ($number > 0) {
@@ -48,15 +48,6 @@ class WordsNumberWriter
             $result .= $this->ciphers[$number];
         }
         return $result;
-    }
-
-    // TODO: better domain-related name
-    private function explodeIntoPowersOfTen($number)
-    {
-        $units = $number % 10;
-        $tens = ($number - $units) % 100;
-        $hundreds = $number - $tens - $units;
-        return [$hundreds, $tens, $units];
     }
 
     private function mostSignificantDigit($number)
