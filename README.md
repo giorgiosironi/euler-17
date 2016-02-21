@@ -9,3 +9,18 @@ From [https://projecteuler.net/problem=17]:
 > NOTE: Do not count spaces or hyphens. For example, 342 (three hundred and forty-two) contains 23 letters and 115 (one hundred and fifteen) contains 20 letters. The use of "and" when writing out numbers is in compliance with British usage.
 
 The solutions builds first the representation of a number in English words, and then counts the characters that compose it, excluding hyphens and spaces as requested.
+
+## Usage
+
+```
+composer install
+php bin/count-letters.php 1000
+```
+
+will print
+
+```
+21124
+```
+
+which is the requested solution.
