@@ -17,6 +17,7 @@ class WordsNumberWriter
 
     private $tens = [
         2 => 'twenty',
+        9 => 'ninety',
     ];
 
     public function __invoke($number)
