@@ -39,7 +39,6 @@ class WordsNumberWriter
         9 => 'ninety',
     ];
 
-    // TODO: out of range numbers
     public function __invoke($number)
     {
         if (!is_numeric($number)) {
@@ -51,14 +50,9 @@ class WordsNumberWriter
 
         $result = '';
         if ($number >= 1000) {
-            $thousands = $this->mostSignificantDigit($number);
-            $number -= 1000 * $thousands;
-            $thousandsPart = $this->baseCases[$thousands] . ' thousand';
-            $separator = ' and ';
-            $result .= $thousandsPart;
-            if ($number > 0) {
-                $result .= $separator;
-            }
+            $segment = new Segment(1000, $this->baseCases, ' thousand', ' and ');
+            $result .= $segment->buildFromNumber($number);
+            $number = $segment->remainingNumber($number);
         }
 
         if ($number >= 100) {
@@ -68,14 +62,9 @@ class WordsNumberWriter
         }
 
         if ($number >= 20) {
-            $tens = $this->mostSignificantDigit($number);
-            $tensPart = $this->tens[$tens];
-            $number -= $tens * 10;
-            $separator = '-';
-            $result .= $tensPart;
-            if ($number > 0) {
-                $result .= $separator;
-            }
+            $segment = new Segment(10, $this->tens, '', '-');
+            $result .= $segment->buildFromNumber($number);
+            $number = $segment->remainingNumber($number);
         }
 
         if ($number >= 1) {
@@ -83,13 +72,9 @@ class WordsNumberWriter
         }
         return $result;
     }
-
-    private function mostSignificantDigit($number)
-    {
-        return substr((string) $number, 0, 1);
-    }
 }
 
+// TODO: move out
 class Segment
 {
     private $powerOfTen;
